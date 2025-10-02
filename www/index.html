@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Fast Http Server</title>
+</head>
+<body bgcolor="#D3D3D3">
+
+    <script>
+
+        const url = '/';
+
+        function send() {
+
+            const coordinatesTextAreaElement = document.getElementById('coordinates');
+            const pathTextAreaElement = document.getElementById('path');
+
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: coordinatesTextAreaElement.value
+            };
+
+            fetch(url, requestOptions)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`${response.status} ${response.statusText}`);
+                    }
+
+                    return response.text();
+                    //return response.json(); // иначе не строкой
+                })
+                .then(data => {
+
+                    pathTextAreaElement.textContent = data;
+
+                    console.log('Success:', data);
+                })
+                .catch(error => {
+
+                    pathTextAreaElement.textContent = error;
+
+                    console.error('Error:', error);
+                });
+        }
+
+    </script>
+
+    <h1>Поиск кратчайшего пути шахматного коня на доске 8×8</h1>
+
+    <div>Тело запроса: JSON вида</div>
+    <textarea id="coordinates" rows="6" cols="50">
+{
+    "from": "e2",
+    "to": "h8"
+}</textarea>
+    <br>
+
+    <button onclick="send()">Отправить</button>
+
+    <br>
+    <br>
+    <div>Результат запроса</div>
+    <textarea id="path" readonly rows="6" cols="50">
+  </textarea>
+</body>
+</html>
