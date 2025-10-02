@@ -15,6 +15,6 @@
  - сервер прослушивает порт 8080
 
 Сборка
-git clone https://github.com/fas1100git/FastHttpServer.git
-cd FastHttpServer
-dotnet build
+- git clone https://github.com/fas1100git/FastHttpServer.git
+- cd FastHttpServer
+- dotnet build
